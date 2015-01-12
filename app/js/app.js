@@ -4,7 +4,7 @@ angular.module('testApp', [])
 .controller('Controller', ['$scope', function ($scope)
 {
   $scope.data = {
-    value: 'value'
+    value: 'Test'
   };
 }])
 .directive('myCircularIndicator', function () {
