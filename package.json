@@ -13,6 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "coffee-script": "^1.8.0",
     "d3": "^3.5.3",
     "http-server": "^0.7.4"
   }
