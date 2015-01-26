@@ -2,7 +2,8 @@
 <html lang="en" ng-app="testApp">
 <head>
   <meta charset="UTF-8">
-  <title>Indicator Test</title>
+  <title>Indicator</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
@@ -10,7 +11,14 @@
 </head>
 <body>
 
-  <my-circular-indicator expected="0.5" actual="0.73"></my-circular-indicator>
+  <div class="container">
+    <h1>Circular Progress Indicator</h1>
+    <div class="row">
+      <div class="col-xs-12 box">
+        <my-circular-indicator expected="0.5" actual="0.73"></my-circular-indicator>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

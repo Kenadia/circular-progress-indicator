@@ -2,8 +2,22 @@ html, body {
   padding: 0;
   margin: 0;
 }
+h1 {
+  text-align: center;
+}
+.box {
+  text-align: center;
+  background: #fafafa;
+  border-radius: 32px;
+  height: 400px;
+}
 my-circular-indicator {
+  display: inline-block;
+  position: relative;
   width: 120px;
   height: 120px;
-  display: inline-block;
+  top: 50%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }
