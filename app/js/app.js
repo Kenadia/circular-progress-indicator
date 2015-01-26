@@ -25,66 +25,51 @@ angular.module('testApp', [])
     scope.render = function () {
       svg.selectAll('*').remove();
       var width = d3.select(element[0]).node().offsetWidth - scope.margin;
-      var radius = width / 2;
+      var r = width / 2;
       var center = 'translate(' + width / 2 + ',' + width / 2  + ')';
-      var innerArc = d3.svg.arc()
-        .startAngle(0)
-        .innerRadius(radius * 0.82)
-        .outerRadius(radius * 0.87);
-      var outerArc = d3.svg.arc()
-        .startAngle(0)
-        .innerRadius(radius * 0.89)
-        .outerRadius(radius);
-      var innerArcTween = makeArcTween(innerArc);
-      var outerArcTween = makeArcTween(outerArc);
-      var circle = svg.append('circle')
-        .attr('r', radius * 0.73)
+
+      var makeArc = function makeArc(inner, outer, color, angle) {
+        var arc = d3.svg.arc()
+          .startAngle(0)
+          .innerRadius(inner)
+          .outerRadius(outer)
+        var arcTween = makeArcTween(arc);
+        var arcPath = svg.append('path')
+          .datum({endAngle: 0})
+          .style('fill', color)
+          .attr('transform', center)
+          .attr('d', arc);
+        arcPath.transition()
+          .duration(750)
+          .call(arcTween, angle);
+        return arcPath;
+      }
+
+      var makeText = function makeText(text, color, size, dx, dy) {
+        return svg.append('text')
+          .text(text)
+          .style('font-size', size)
+          .style('fill', color)
+          .style('text-anchor', 'middle')
+          .style('font-family', 'Helvetica Neue')
+          .style('font-weight', '200')
+          .attr('dx', dx)
+          .attr('dy', dy)
+          .attr('transform', center)
+      }
+
+      svg.append('circle')
+        .attr('r', r * 0.73)
         .style('fill', '#eee')
         .attr('transform', center);
-      svg.append('text')
-        .text(scope.actual * 100)
-        .style('text-anchor', 'middle')
-        .style('font-family', 'Helvetica Neue')
-        .style('font-weight', '200')
-        .style('font-size', radius * .54)
-        .style('fill', '#666')
-        .attr('dx', radius * -0.08)
-        .attr('dy', radius * 0.07)
-        .attr('transform', center);
-      svg.append('text')
-        .text('%')
-        .style('font-family', 'Helvetica Neue')
-        .style('font-weight', '200')
-        .style('font-size', radius * .27)
-        .style('fill', '#666')
-        .attr('dx', radius * .2)
-        .attr('dy', radius * .05)
-        .attr('transform', center);
-      svg.append('text')
-        .text('Progress')
-        .style('text-anchor', 'middle')
-        .style('font-family', 'Helvetica Neue')
-        .style('font-weight', '200')
-        .style('font-size', radius * .22)
-        .style('fill', '#999')
-        .attr('dy', radius * .28)
-        .attr('transform', center);
-      var inner = svg.append('path')
-        .datum({endAngle: 0})
-        .style('fill', '#C7E596')
-        .attr('transform', center)
-        .attr('d', innerArc);
-      var outer = svg.append('path')
-        .datum({endAngle: 0})
-        .style('fill', '#78C000')
-        .attr('transform', center)
-        .attr('d', outerArc);
-      inner.transition()
-        .duration(750)
-        .call(innerArcTween, scope.expected * 2 * Math.PI);
-      outer.transition()
-        .duration(750)
-        .call(outerArcTween, scope.actual * 2 * Math.PI);
+
+      makeArc(r * 0.82, r * 0.87, '#C7E596', scope.expected * 2 * Math.PI);
+      makeArc(r * 0.89, r * 1.00, '#78C000', scope.actual * 2 * Math.PI);
+
+      makeText(scope.actual * 100, '#666', r * .54, r * -0.08, r * 0.07);
+      makeText('%', '#666', r * .27, r * 0.31, r * 0.05);
+      makeText('Progress', '#999', r * .22, 0, r * .28);
+
     };
 
     window.onresize = function () {
