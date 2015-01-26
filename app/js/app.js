@@ -10,7 +10,7 @@ angular.module('testApp', [])
 
     var svg = d3.select(element[0]).append('svg');
 
-    var makeTween = function makeTween(arcFunction) {
+    var makeArcTween = function makeArcTween(arcFunction) {
       return function (transition, newAngle) {
         transition.attrTween('d', function (d) {
           var interpolate = d3.interpolate(d.endAngle, newAngle);
@@ -27,37 +27,64 @@ angular.module('testApp', [])
       var width = d3.select(element[0]).node().offsetWidth - scope.margin;
       var radius = width / 2;
       var center = 'translate(' + width / 2 + ',' + width / 2  + ')';
-      var arc = d3.svg.arc()
-        .startAngle(0);
-      var arcTween = makeTween(arc);
+      var innerArc = d3.svg.arc()
+        .startAngle(0)
+        .innerRadius(radius * 0.82)
+        .outerRadius(radius * 0.87);
+      var outerArc = d3.svg.arc()
+        .startAngle(0)
+        .innerRadius(radius * 0.89)
+        .outerRadius(radius);
+      var innerArcTween = makeArcTween(innerArc);
+      var outerArcTween = makeArcTween(outerArc);
       var circle = svg.append('circle')
-        .attr('r', radius * 0.75)
+        .attr('r', radius * 0.73)
         .style('fill', '#eee')
         .attr('transform', center);
+      svg.append('text')
+        .text(scope.actual * 100)
+        .style('text-anchor', 'middle')
+        .style('font-family', 'Helvetica Neue')
+        .style('font-weight', '200')
+        .style('font-size', '32px')
+        .style('fill', '#666')
+        .attr('dx', -5)
+        .attr('dy', 4)
+        .attr('transform', center);
+      svg.append('text')
+        .text('%')
+        .style('font-family', 'Helvetica Neue')
+        .style('font-weight', '200')
+        .style('font-size', '16px')
+        .style('fill', '#666')
+        .attr('dx', 12)
+        .attr('dy', 3)
+        .attr('transform', center);
+      svg.append('text')
+        .text('Progress')
+        .style('text-anchor', 'middle')
+        .style('font-family', 'Helvetica Neue')
+        .style('font-weight', '200')
+        .style('font-size', '13px')
+        .style('fill', '#999')
+        .attr('dy', 17)
+        .attr('transform', center);
       var inner = svg.append('path')
-        .datum({
-          endAngle: 0,
-          innerRadius: radius * 0.82,
-          outerRadius: radius * 0.86
-        })
-        .style('fill', '#8f6')
+        .datum({endAngle: 0})
+        .style('fill', '#C7E596')
         .attr('transform', center)
-        .attr('d', arc);
+        .attr('d', innerArc);
       var outer = svg.append('path')
-        .datum({
-          endAngle: 0,
-          innerRadius: radius * 0.9,
-          outerRadius: radius
-        })
-        .style('fill', '#4d5')
+        .datum({endAngle: 0})
+        .style('fill', '#78C000')
         .attr('transform', center)
-        .attr('d', arc);
-      outer.transition()
-        .duration(750)
-        .call(arcTween, scope.actual * 2 * Math.PI);
+        .attr('d', outerArc);
       inner.transition()
         .duration(750)
-        .call(arcTween, scope.expected * 2 * Math.PI);
+        .call(innerArcTween, scope.expected * 2 * Math.PI);
+      outer.transition()
+        .duration(750)
+        .call(outerArcTween, scope.actual * 2 * Math.PI);
     };
 
     window.onresize = function () {
