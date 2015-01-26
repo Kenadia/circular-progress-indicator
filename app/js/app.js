@@ -7,11 +7,19 @@ angular.module('testApp', [])
   };
 }])
 .directive('myCircularIndicator', function () {
+
+  var link = function (scope, element, attrs) {
+    attrs.expected = scope.expected = parseFloat(scope.expected || 0);
+    attrs.actual = scope.actual = parseFloat(scope.actual || 0);
+  }
+
   return {
     restrict: 'E',
     scope: {
-      data: '='
+      expected: '@',
+      actual: '@'
     },
+    link: link,
     templateUrl: 'templates/my-circular-indicator.html'
   };
 });
