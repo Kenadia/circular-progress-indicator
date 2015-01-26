@@ -1,14 +1,17 @@
 'use strict'
 
 angular.module('testApp', [])
-.controller('Controller', ['$scope', function ($scope)
-{
-  $scope.data = {
+.controller('Controller', ['$scope', function ($scope) {
+  $scope.outer_data = {
     value: 'Value'
   };
 }])
 .directive('myCircularIndicator', function () {
   return {
-    template: 'Test 2: {{data.value}}'
+    restrict: 'E',
+    scope: {
+      data: '='
+    },
+    templateUrl: 'templates/my-circular-indicator.html'
   };
 });
