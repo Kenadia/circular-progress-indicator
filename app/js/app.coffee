@@ -1,13 +1,19 @@
 angular.module "testApp", []
+.controller "Controller", ["$scope", ($scope) ->
+  $scope.animateOnResize = true;
+]
 .directive "myCircularIndicator", () ->
 
   link = (scope, element, attrs) ->
     attrs.expected = scope.expected = parseFloat(scope.expected or 0)
     attrs.actual = scope.actual = parseFloat(scope.actual or 0)
+    if typeof scope.animateOnResize == "undefined"
+      scope.animateOnResize = true
 
     svg = d3.select(element[0]).append("svg")
       .style("width", scope.width)
       .style("height", scope.height)
+    initialRender = true # True until the svg has rendered once
 
     makeArcTween = (arcFunction) ->
       (transition, newAngle) ->
@@ -24,6 +30,17 @@ angular.module "testApp", []
         .attr "transform", scope.center
 
     makeArc = (inner, outer, class_, angle) ->
+      arc = d3.svg.arc()
+        .startAngle(0)
+        .endAngle(angle)
+        .innerRadius(inner)
+        .outerRadius(outer)
+      svg.append("path")
+        .attr "class", class_
+        .attr "transform", scope.center
+        .attr "d", arc
+
+    makeAnimatedArc = (inner, outer, class_, angle) ->
       arc = d3.svg.arc()
         .startAngle(0)
         .innerRadius(inner)
@@ -50,15 +67,20 @@ angular.module "testApp", []
         .attr "transform", scope.center
 
     scope.render = ->
+      if initialRender or scope.animateOnResize
+        makeArcFn = makeAnimatedArc
+      else
+        makeArcFn = makeArc
       svg.selectAll("*").remove()
       r = scope.width / 2.0 # Radius
       scope.center = "translate(" + r + "," + scope.height / 2.0 + ")"
       makeCircle r * 0.73, scope.indicatorCenterClass
-      makeArc r * 0.82, r * 0.87, scope.expectedArcClass, scope.expected * 2 * Math.PI
-      makeArc r * 0.89, r * 1.00, scope.actualArcClass, scope.actual * 2 * Math.PI
+      makeArcFn r * 0.82, r * 0.87, scope.expectedArcClass, scope.expected * 2 * Math.PI
+      makeArcFn r * 0.89, r * 1.00, scope.actualArcClass, scope.actual * 2 * Math.PI
       makeText scope.actual * 100, "#666", r * .54, r * -0.09, r * 0.07
       makeText "%", "#666", r * .27, r * 0.31, r * 0.05
       makeText "Progress", "#999", r * .22, 0, r * .28
+      initialRender = false
       return
 
     # Render when the element width changes
@@ -70,7 +92,7 @@ angular.module "testApp", []
     # Update bindings when window changes size to detect change in element width
     debouncedApply = _.debounce (->
         scope.$apply()
-      ), 300
+      ), 250
     angular.element(window).bind "resize", debouncedApply
 
     scope.$on "$destroy", cleanup = ->
@@ -85,4 +107,5 @@ angular.module "testApp", []
     indicatorCenterClass: "@"
     expectedArcClass: "@"
     actualArcClass: "@"
+    animateOnResize: "=?"
   link: link
