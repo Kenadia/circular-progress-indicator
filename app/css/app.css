@@ -59,6 +59,18 @@ my-circular-indicator {
 }
 
 /* UI styling */
+.slider-label {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+.slider {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  margin: 5px 0;
+  margin-left: 20px;
+}
 .toggle-animate {
   position: absolute;
   width: 100%;

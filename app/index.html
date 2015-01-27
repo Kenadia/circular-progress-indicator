@@ -19,35 +19,49 @@
   <div class="container">
     <h1>Circular Progress Indicator</h1>
     <h3>Fixed sizing</h3>
-    <div class="row outer-box">
-      <div class="col-xs-4 inner-box">
-        <my-circular-indicator class="small-indicator" expected="0.5" actual="0.73"
-          indicator-center-class="indicator-center"
-          expected-arc-class="inner-arc" actual-arc-class="outer-arc">
-        </my-circular-indicator>
+    <div class="outer-box">
+      <div class="row">
+        <div class="col-sm-4 inner-box">
+          <my-circular-indicator class="small-indicator" expected="expected" actual="actual"
+            indicator-center-class="indicator-center"
+            expected-arc-class="inner-arc" actual-arc-class="outer-arc">
+          </my-circular-indicator>
+        </div>
+        <div class="col-sm-4 inner-box">
+          <my-circular-indicator class="medium-indicator" expected="expected" actual="actual"
+            indicator-center-class="indicator-center"
+            expected-arc-class="inner-arc" actual-arc-class="outer-arc">
+          </my-circular-indicator>
+        </div>
+        <div class="col-sm-4 inner-box">
+          <my-circular-indicator class="big-indicator" expected="expected" actual="actual"
+            indicator-center-class="indicator-center"
+            expected-arc-class="inner-arc" actual-arc-class="outer-arc">
+          </my-circular-indicator>
+        </div>
       </div>
-      <div class="col-xs-4 inner-box">
-        <my-circular-indicator class="medium-indicator" expected="0.5" actual="0.73"
-          indicator-center-class="indicator-center"
-          expected-arc-class="inner-arc" actual-arc-class="outer-arc">
-        </my-circular-indicator>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="slider-label">Expected</span>
+        </div>
+        <div class="col-sm-4">
+          <div class="js-expected-slider slider"></div>
+        </div>
       </div>
-      <div class="col-xs-4 inner-box">
-        <my-circular-indicator class="big-indicator" expected="0.5" actual="0.73"
-          indicator-center-class="indicator-center"
-          expected-arc-class="inner-arc" actual-arc-class="outer-arc">
-        </my-circular-indicator>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="slider-label">Actual</span>
+        </div>
+        <div class="col-sm-4">
+          <div class="js-actual-slider slider"></div>
+        </div>
       </div>
-    </div>
-    <div class="value-sliders">
-      <div class="js-expected-slider"></div>
-      <div class="js-actual-slider"></div>
     </div>
     <br>
     <h3>Responsive sizing</h3>
     <div class="row">
-      <div class="col-xs-2 col-xs-offset-5 outer-box inner-box">
-        <my-circular-indicator class="resizing-indicator" expected="0.5" actual="0.73"
+      <div class="col-sm-2 col-sm-offset-5 outer-box inner-box">
+        <my-circular-indicator class="resizing-indicator" expected="expected" actual="actual"
           indicator-center-class="indicator-center"
           expected-arc-class="inner-arc" actual-arc-class="outer-arc"
           animate-on-resize="animateOnResize">

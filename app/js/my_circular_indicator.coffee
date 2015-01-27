@@ -8,8 +8,8 @@ angular.module "testApp"
       scope.animateOnResize = true
 
     svg = d3.select(element[0]).append("svg")
-      .style("width", scope.width)
-      .style("height", scope.height)
+      .style("width", "100%")
+      .style("height", "100%")
     initialRender = true # True until the svg has rendered once
 
     makeArcTween = (arcFunction) ->
@@ -53,12 +53,12 @@ angular.module "testApp"
         .call(arcTween, angle)
       arcPath
 
-    makeText = (text, color, size, dx, dy) ->
+    makeText = (text, color, size, align, dx, dy) ->
       svg.append("text")
         .text(text)
         .style "font-size", size
         .style "fill", color
-        .style "text-anchor", "middle"
+        .style "text-anchor", align
         .attr "dx", dx
         .attr "dy", dy
         .attr "transform", scope.center
@@ -74,9 +74,9 @@ angular.module "testApp"
       makeCircle r * 0.73, scope.indicatorCenterClass
       makeArcFn r * 0.82, r * 0.87, scope.expectedArcClass, scope.expected * 2 * Math.PI
       makeArcFn r * 0.89, r * 1.00, scope.actualArcClass, scope.actual * 2 * Math.PI
-      makeText scope.actual * 100, "#666", r * .54, r * -0.09, r * 0.07
-      makeText "%", "#666", r * .27, r * 0.31, r * 0.05
-      makeText "Progress", "#999", r * .22, 0, r * .28
+      makeText scope.actual * 100, "#666", r * .54, "end", r * 0.3, r * 0.07
+      makeText "%", "#666", r * .27, "start", r * 0.3, r * 0.05
+      makeText "Progress", "#999", r * .22, "middle", 0, r * .28
       initialRender = false
       return
 
@@ -85,6 +85,9 @@ angular.module "testApp"
         scope.height = element[0].offsetHeight
         scope.width = element[0].offsetWidth
       ), scope.render
+
+    scope.$watch "expected", scope.render
+    scope.$watch "actual", scope.render
 
     # Update bindings when window changes size to detect change in element width
     debouncedApply = _.debounce (->
@@ -99,8 +102,8 @@ angular.module "testApp"
 
   restrict: "E"
   scope:
-    expected: "@"
-    actual: "@"
+    expected: "="
+    actual: "="
     indicatorCenterClass: "@"
     expectedArcClass: "@"
     actualArcClass: "@"
