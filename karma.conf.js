@@ -15,6 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/d3/d3.min.js',
+      'node_modules/underscore/underscore-min.js',
       'app/bower_components/angular/angular.min.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/js/*.js',
