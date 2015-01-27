@@ -1,0 +1,90 @@
+/* Main styling */
+html, body {
+  padding: 0;
+  margin: 0;
+}
+h1, h3 {
+  text-align: center;
+}
+.outer-box {
+  background: rgb(250, 250, 250);
+  border-radius: 32px;
+}
+.inner-box {
+  position: relative;
+  text-align: center;
+  height: 300px;
+}
+
+/* Indicator styling */
+.indicator-center {
+  fill: rgb(238, 238, 238);
+}
+.inner-arc {
+  fill: rgb(199, 229, 150);
+}
+.outer-arc {
+  fill: rgb(120, 192, 0);
+  transition: fill .75s ease;
+  -o-transition: fill .75s ease;
+  -mox-transition: fill .75s ease;
+  -webkit-transition: fill .75s ease;
+}
+.outer-arc-weak {
+  fill: rgb(226, 118, 22);
+}
+.outer-arc-weaker {
+  fill: rgb(193, 55, 11);
+}
+.resizing-indicator .inner-arc {
+  fill: rgb(86, 172, 206);
+}
+.resizing-indicator .outer-arc {
+  fill: rgb(29, 140, 180);
+}
+circular-progress-indicator {
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  font-family: "Helvetica Neue";
+  font-weight: 200;
+}
+.small-indicator {
+  width: 80px;
+  height: 80px;
+}
+.medium-indicator {
+  width: 120px;
+  height: 120px;
+}
+.big-indicator {
+  width: 160px;
+  height: 160px;
+}
+.resizing-indicator {
+  width: 100%;
+}
+
+/* UI styling */
+.slider-label {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+.slider {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  margin: 5px 0;
+  margin-left: 20px;
+}
+.toggle-animate {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 10px;
+  font-size: 12px;
+}
