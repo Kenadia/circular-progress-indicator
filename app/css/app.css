@@ -25,6 +25,10 @@ h1, h3 {
 }
 .outer-arc {
   fill: rgb(120, 192, 0);
+  transition: fill .75s ease;
+  -o-transition: fill .75s ease;
+  -mox-transition: fill .75s ease;
+  -webkit-transition: fill .75s ease;
 }
 .outer-arc-weak {
   fill: rgb(226, 118, 22);
