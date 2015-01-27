@@ -7,7 +7,7 @@ h1, h3 {
   text-align: center;
 }
 .outer-box {
-  background: #fafafa;
+  background: rgb(250, 250, 250);
   border-radius: 32px;
 }
 .inner-box {
@@ -18,13 +18,13 @@ h1, h3 {
 
 /* Indicator styling */
 .indicator-center {
-  fill: #eee;
+  fill: rgb(238, 238, 238);
 }
 .inner-arc {
-  fill: #C7E596
+  fill: rgb(199, 229, 150);
 }
 .outer-arc {
-  fill: #78C000
+  fill: rgb(120, 192, 0);
 }
 .resizing-indicator .inner-arc {
   fill: rgb(86, 172, 206);
