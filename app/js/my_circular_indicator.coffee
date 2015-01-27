@@ -63,6 +63,9 @@ angular.module "testApp"
         .attr "dy", dy
         .attr "transform", scope.center
 
+    sanitizePercentage = (value) ->
+      (Math.min 1, Math.max 0, parseFloat value) or 0
+
     scope.render = ->
       if initialRender or scope.animateOnResize
         makeArcFn = makeAnimatedArc
@@ -71,10 +74,12 @@ angular.module "testApp"
       svg.selectAll("*").remove()
       r = scope.width / 2.0 # Radius
       scope.center = "translate(" + r + "," + scope.height / 2.0 + ")"
+      expected = sanitizePercentage(scope.expected)
+      actual = sanitizePercentage(scope.actual)
       makeCircle r * 0.73, scope.indicatorCenterClass
-      makeArcFn r * 0.82, r * 0.87, scope.expectedArcClass, scope.expected * 2 * Math.PI
-      makeArcFn r * 0.89, r * 1.00, scope.actualArcClass, scope.actual * 2 * Math.PI
-      makeText scope.actual * 100, "#666", r * .54, "end", r * 0.3, r * 0.07
+      makeArcFn r * 0.82, r * 0.87, scope.expectedArcClass, expected * 2 * Math.PI
+      makeArcFn r * 0.89, r * 1.00, scope.actualArcClass, actual * 2 * Math.PI
+      makeText actual * 100, "#666", r * .54, "end", r * 0.3, r * 0.07
       makeText "%", "#666", r * .27, "start", r * 0.3, r * 0.05
       makeText "Progress", "#999", r * .22, "middle", 0, r * .28
       initialRender = false
