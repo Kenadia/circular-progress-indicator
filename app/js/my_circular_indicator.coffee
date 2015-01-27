@@ -1,7 +1,4 @@
-angular.module "testApp", []
-.controller "Controller", ["$scope", ($scope) ->
-  $scope.animateOnResize = true;
-]
+angular.module "testApp"
 .directive "myCircularIndicator", () ->
 
   link = (scope, element, attrs) ->
