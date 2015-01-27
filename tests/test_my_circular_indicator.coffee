@@ -59,3 +59,29 @@ describe "directive: my-circular-indicator", ->
       scope.actual = Infinity
       scope.$digest()
       expect(element.find("text")[0].innerHTML).toBe("100")
+
+  describe "when actual percentage is trailing expected percentage", ->
+
+    it "should not add any classes if actual is at least 75% expected", ->
+      scope.expected = 0.5
+      scope.actual = 0.375
+      scope.$digest()
+      expect(element[0].querySelector(".outer-arc").classList.length).toBe(1)
+
+    it "should add the 'weak' class if actual is <75% but at least 50% expected", ->
+      scope.expected = 0.5
+      scope.actual = 0.374
+      scope.$digest()
+      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weak")
+      scope.actual = 0.25
+      scope.$digest()
+      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weak")
+
+    it "should add the 'weaker' class if actual is below 50% expected", ->
+      scope.expected = 0.5
+      scope.actual = 0.245
+      scope.$digest()
+      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weaker")
+      scope.actual = 0
+      scope.$digest()
+      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weaker")
