@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <title>Indicator</title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="js/app.js"></script>
@@ -34,6 +37,10 @@
           expected-arc-class="inner-arc" actual-arc-class="outer-arc">
         </my-circular-indicator>
       </div>
+    </div>
+    <div class="value-sliders">
+      <div class="js-expected-slider"></div>
+      <div class="js-actual-slider"></div>
     </div>
     <br>
     <h3>Responsive sizing</h3>
