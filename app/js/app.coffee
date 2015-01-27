@@ -7,6 +7,7 @@ angular.module "testApp", []
 
     svg = d3.select(element[0]).append("svg")
       .style("width", scope.width)
+      .style("height", scope.height)
 
     makeArcTween = (arcFunction) ->
       (transition, newAngle) ->
@@ -51,7 +52,7 @@ angular.module "testApp", []
     scope.render = ->
       svg.selectAll("*").remove()
       r = scope.width / 2.0 # Radius
-      scope.center = "translate(" + r + "," + r + ")"
+      scope.center = "translate(" + r + "," + scope.height / 2.0 + ")"
       makeCircle r * 0.73, scope.indicatorCenterClass
       makeArc r * 0.82, r * 0.87, scope.expectedArcClass, scope.expected * 2 * Math.PI
       makeArc r * 0.89, r * 1.00, scope.actualArcClass, scope.actual * 2 * Math.PI
@@ -62,6 +63,7 @@ angular.module "testApp", []
 
     # Render when the element width changes
     scope.$watch (getElementWidth = ->
+        scope.height = element[0].offsetHeight
         scope.width = element[0].offsetWidth
       ), scope.render
 
