@@ -72,16 +72,20 @@ describe "directive: my-circular-indicator", ->
       scope.expected = 0.5
       scope.actual = 0.374
       scope.$digest()
-      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weak")
+      expect(element[0].querySelector(".outer-arc").classList[1])
+        .toBe("outer-arc-weak")
       scope.actual = 0.25
       scope.$digest()
-      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weak")
+      expect(element[0].querySelector(".outer-arc").classList[1])
+        .toBe("outer-arc-weak")
 
     it "should add the 'weaker' class if actual is below 50% expected", ->
       scope.expected = 0.5
       scope.actual = 0.245
       scope.$digest()
-      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weaker")
+      expect(element[0].querySelector(".outer-arc").classList[1])
+        .toBe("outer-arc-weaker")
       scope.actual = 0
       scope.$digest()
-      expect(element[0].querySelector(".outer-arc").classList[1]).toBe("weaker")
+      expect(element[0].querySelector(".outer-arc").classList[1])
+        .toBe("outer-arc-weaker")
