@@ -5,30 +5,48 @@ html, body {
 h1 {
   text-align: center;
 }
-.box {
-  text-align: center;
+.outer-box {
   background: #fafafa;
   border-radius: 32px;
+}
+.inner-box {
+  text-align: center;
   height: 400px;
 }
 .indicator-center {
   fill: #eee;
 }
 .inner-arc {
-  fill: #C7E596
+  fill: rgb(86, 172, 206);
 }
 .outer-arc {
+  fill: rgb(29, 140, 180);
+}
+.medium-indicator .inner-arc {
+  fill: #C7E596
+}
+.medium-indicator .outer-arc {
   fill: #78C000
 }
 my-circular-indicator {
   display: inline-block;
   position: relative;
-  width: 120px;
-  height: 120px;
   top: 50%;
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   font-family: "Helvetica Neue";
   font-weight: 200;
+}
+.small-indicator {
+  width: 80px;
+  height: 80px;
+}
+.medium-indicator {
+  width: 120px;
+  height: 120px;
+}
+.big-indicator {
+  width: 160px;
+  height: 160px;
 }

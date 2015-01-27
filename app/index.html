@@ -13,9 +13,21 @@
 
   <div class="container">
     <h1>Circular Progress Indicator</h1>
-    <div class="row">
-      <div class="col-xs-12 box">
-        <my-circular-indicator expected="0.5" actual="0.73"
+    <div class="row outer-box">
+      <div class="col-xs-4 inner-box">
+        <my-circular-indicator class="small-indicator" expected="0.5" actual="0.73"
+            indicator-center-class="indicator-center"
+            expected-arc-class="inner-arc" actual-arc-class="outer-arc">
+        </my-circular-indicator>
+      </div>
+      <div class="col-xs-4 inner-box">
+        <my-circular-indicator class="medium-indicator" expected="0.5" actual="0.73"
+            indicator-center-class="indicator-center"
+            expected-arc-class="inner-arc" actual-arc-class="outer-arc">
+        </my-circular-indicator>
+      </div>
+      <div class="col-xs-4 inner-box">
+        <my-circular-indicator class="big-indicator" expected="0.5" actual="0.73"
             indicator-center-class="indicator-center"
             expected-arc-class="inner-arc" actual-arc-class="outer-arc">
         </my-circular-indicator>
