@@ -14,6 +14,7 @@
 
   <div class="container">
     <h1>Circular Progress Indicator</h1>
+    <h3>Fixed sizing</h3>
     <div class="row outer-box">
       <div class="col-xs-4 inner-box">
         <my-circular-indicator class="small-indicator" expected="0.5" actual="0.73"
@@ -35,12 +36,19 @@
       </div>
     </div>
     <br>
+    <h3>Responsive sizing</h3>
     <div class="row">
       <div class="col-xs-2 col-xs-offset-5 outer-box inner-box">
         <my-circular-indicator class="resizing-indicator" expected="0.5" actual="0.73"
           indicator-center-class="indicator-center"
           expected-arc-class="inner-arc" actual-arc-class="outer-arc">
         </my-circular-indicator>
+        <div class="toggle-animate">
+          <label>
+            <input class="js-toggle-animate" type="checkbox" value="value">
+            <br>Animate on resize
+          </label>
+        </div>
       </div>
     </div>
   </div>
