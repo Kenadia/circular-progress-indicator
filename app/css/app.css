@@ -11,22 +11,22 @@ h1 {
 }
 .inner-box {
   text-align: center;
-  height: 400px;
+  height: 300px;
 }
 .indicator-center {
   fill: #eee;
 }
 .inner-arc {
-  fill: rgb(86, 172, 206);
-}
-.outer-arc {
-  fill: rgb(29, 140, 180);
-}
-.medium-indicator .inner-arc {
   fill: #C7E596
 }
-.medium-indicator .outer-arc {
+.outer-arc {
   fill: #78C000
+}
+.resizing-indicator .inner-arc {
+  fill: rgb(86, 172, 206);
+}
+.resizing-indicator .outer-arc {
+  fill: rgb(29, 140, 180);
 }
 my-circular-indicator {
   display: inline-block;
@@ -49,4 +49,7 @@ my-circular-indicator {
 .big-indicator {
   width: 160px;
   height: 160px;
+}
+.resizing-indicator {
+  width: 100%;
 }

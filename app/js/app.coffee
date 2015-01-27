@@ -1,15 +1,12 @@
-angular.module("testApp", [])
-.directive "myCircularIndicator", ->
+angular.module "testApp", []
+.directive "myCircularIndicator", () ->
 
   link = (scope, element, attrs) ->
     attrs.expected = scope.expected = parseFloat(scope.expected or 0)
     attrs.actual = scope.actual = parseFloat(scope.actual or 0)
-    
-    width = element[0].offsetWidth
-    r = width / 2.0 # Radius
-    center = "translate(" + r + "," + r + ")"
+
     svg = d3.select(element[0]).append("svg")
-      .style('width', width)
+      .style("width", scope.width)
 
     makeArcTween = (arcFunction) ->
       (transition, newAngle) ->
@@ -23,7 +20,7 @@ angular.module("testApp", [])
       svg.append("circle")
         .attr "class", class_
         .attr "r", radius
-        .attr "transform", center
+        .attr "transform", scope.center
 
     makeArc = (inner, outer, class_, angle) ->
       arc = d3.svg.arc()
@@ -34,7 +31,7 @@ angular.module("testApp", [])
       arcPath = svg.append("path")
         .datum endAngle: 0
         .attr "class", class_
-        .attr "transform", center
+        .attr "transform", scope.center
         .attr "d", arc
       arcPath.transition()
         .duration(750)
@@ -49,10 +46,12 @@ angular.module("testApp", [])
         .style "text-anchor", "middle"
         .attr "dx", dx
         .attr "dy", dy
-        .attr "transform", center
+        .attr "transform", scope.center
 
     scope.render = ->
       svg.selectAll("*").remove()
+      r = scope.width / 2.0 # Radius
+      scope.center = "translate(" + r + "," + r + ")"
       makeCircle r * 0.73, scope.indicatorCenterClass
       makeArc r * 0.82, r * 0.87, scope.expectedArcClass, scope.expected * 2 * Math.PI
       makeArc r * 0.89, r * 1.00, scope.actualArcClass, scope.actual * 2 * Math.PI
@@ -61,7 +60,19 @@ angular.module("testApp", [])
       makeText "Progress", "#999", r * .22, 0, r * .28
       return
 
-    scope.render()
+    # Render when the element width changes
+    scope.$watch (getElementWidth = ->
+        scope.width = element[0].offsetWidth
+      ), scope.render
+
+    # Update bindings when window changes size to detect change in element width
+    debouncedApply = _.debounce (->
+        scope.$apply()
+      ), 300
+    angular.element(window).bind "resize", debouncedApply
+
+    scope.$on "$destroy", cleanup = ->
+      angular.element(window).unbind "resize", debouncedApply
 
     return
 
