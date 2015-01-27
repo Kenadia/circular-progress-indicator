@@ -26,6 +26,12 @@ h1, h3 {
 .outer-arc {
   fill: rgb(120, 192, 0);
 }
+.outer-arc.weak {
+  fill: rgb(226, 118, 22);
+}
+.outer-arc.weaker {
+  fill: rgb(193, 55, 11);
+}
 .resizing-indicator .inner-arc {
   fill: rgb(86, 172, 206);
 }

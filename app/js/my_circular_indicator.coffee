@@ -1,6 +1,9 @@
 angular.module "testApp"
 .directive "myCircularIndicator", () ->
 
+  WEAK_THRESHOLD = 0.75
+  WEAKER_THRESHOLD = 0.5
+
   link = (scope, element, attrs) ->
     attrs.expected = scope.expected = parseFloat(scope.expected or 0)
     attrs.actual = scope.actual = parseFloat(scope.actual or 0)
@@ -76,9 +79,14 @@ angular.module "testApp"
       scope.center = "translate(" + r + "," + scope.height / 2.0 + ")"
       expected = sanitizePercentage(scope.expected)
       actual = sanitizePercentage(scope.actual)
+      actualClasses = [scope.actualArcClass]
+      if actual / expected < WEAKER_THRESHOLD
+        actualClasses.push "weaker"
+      else if actual / expected < WEAK_THRESHOLD
+        actualClasses.push "weak"
       makeCircle r * 0.73, scope.indicatorCenterClass
       makeArcFn r * 0.82, r * 0.87, scope.expectedArcClass, expected * 2 * Math.PI
-      makeArcFn r * 0.89, r * 1.00, scope.actualArcClass, actual * 2 * Math.PI
+      makeArcFn r * 0.89, r * 1.00, (actualClasses.join " "), actual * 2 * Math.PI
       makeText actual * 100, "#666", r * .54, "end", r * 0.3, r * 0.07
       makeText "%", "#666", r * .27, "start", r * 0.3, r * 0.05
       makeText "Progress", "#999", r * .22, "middle", 0, r * .28
