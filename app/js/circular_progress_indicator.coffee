@@ -1,5 +1,5 @@
 angular.module "testApp"
-.directive "myCircularIndicator", () ->
+.directive "circularProgressIndicator", () ->
 
   WEAK_THRESHOLD = 0.75
   WEAKER_THRESHOLD = 0.5

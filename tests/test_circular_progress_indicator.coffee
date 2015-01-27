@@ -1,4 +1,4 @@
-describe "directive: my-circular-indicator", ->
+describe "directive: circular-progress-indicator", ->
 
   scope = undefined
   element = undefined
@@ -7,10 +7,10 @@ describe "directive: my-circular-indicator", ->
 
   beforeEach inject ($rootScope, $compile) ->
     scope = $rootScope.$new()
-    element = ['<my-circular-indicator expected="expected"'
+    element = ['<circular-progress-indicator expected="expected"'
       'indicator-center-class="indicator-center"'
       'expected-arc-class="inner-arc" actual-arc-class="outer-arc"'
-      'actual="actual"></my-circular-indicator>'].join ""
+      'actual="actual"></circular-progress-indicator>'].join ""
     scope.expected = 0.4
     scope.actual = 0.65
     element = $compile(element)(scope)
