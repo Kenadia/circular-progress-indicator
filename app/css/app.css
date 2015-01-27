@@ -11,6 +11,9 @@ h1 {
   border-radius: 32px;
   height: 400px;
 }
+.indicator-center {
+  fill: #eee;
+}
 .inner-arc {
   fill: #C7E596
 }
@@ -26,4 +29,6 @@ my-circular-indicator {
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
+  font-family: "Helvetica Neue";
+  font-weight: 200;
 }
