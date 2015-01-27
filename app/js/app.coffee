@@ -22,7 +22,7 @@ angular.module("testApp", [])
       r = width / 2
       center = "translate(" + r + "," + r + ")"
 
-      makeArc = (inner, outer, color, angle) ->
+      makeArc = (inner, outer, class_, angle) ->
         arc = d3.svg.arc()
           .startAngle(0)
           .innerRadius(inner)
@@ -30,7 +30,7 @@ angular.module("testApp", [])
         arcTween = makeArcTween(arc)
         arcPath = svg.append("path")
           .datum endAngle: 0
-          .style "fill", color
+          .attr "class", class_
           .attr "transform", center
           .attr "d", arc
         arcPath.transition()
@@ -55,8 +55,8 @@ angular.module("testApp", [])
         .attr "r", r * 0.73
         .attr "transform", center
 
-      makeArc r * 0.82, r * 0.87, "#C7E596", scope.expected * 2 * Math.PI
-      makeArc r * 0.89, r * 1.00, "#78C000", scope.actual * 2 * Math.PI
+      makeArc r * 0.82, r * 0.87, scope.expectedArcClass, scope.expected * 2 * Math.PI
+      makeArc r * 0.89, r * 1.00, scope.actualArcClass, scope.actual * 2 * Math.PI
       makeText scope.actual * 100, "#666", r * .54, r * -0.08, r * 0.07
       makeText "%", "#666", r * .27, r * 0.31, r * 0.05
       makeText "Progress", "#999", r * .22, 0, r * .28
@@ -76,5 +76,7 @@ angular.module("testApp", [])
   scope:
     expected: "@"
     actual: "@"
+    expectedArcClass: "@"
+    actualArcClass: "@"
     margin: "@"
   link: link
