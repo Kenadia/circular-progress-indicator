@@ -68,16 +68,16 @@ angular.module "testApp"
       scope.center = "translate(" + r + "," + scope.height / 2.0 + ")"
 
       # Make SVG elements
-      makeCircle r * 0.73, scope.indicatorCenterClass
-      innerArcFunction = makeArcFunction r * 0.82, r * 0.87
-      outerArcFunction = makeArcFunction r * 0.89, r * 1.00
+      makeCircle r * 0.72, scope.indicatorCenterClass
+      innerArcFunction = makeArcFunction r * 0.83, r * 0.88
+      outerArcFunction = makeArcFunction r * 0.90, r * 1.00
       innerArc = makeArc innerArcFunction, scope.expectedArcClass
       outerArc = makeArc outerArcFunction, scope.actualArcClass
       animateInner = makeArcAnimation innerArcFunction, innerArc
       animateOuter = makeArcAnimation outerArcFunction, outerArc
-      makeText "", "#666", r * .54, "end", r * 0.3, r * 0.07
-      makeText "%", "#666", r * .27, "start", r * 0.3, r * 0.05
-      makeText "Progress", "#999", r * .22, "middle", 0, r * .28
+      makeText "", "#666", r * .48, "end", r * 0.26, r * 0.01
+      makeText "%", "#666", r * .27, "start", r * 0.24, r * 0.01
+      makeText "Progress", "#999", r * .20, "middle", r * 0.05, r * .26
 
       # Don't animate if arcs have been rendered previously and animateOnResize is false
       if initialRender or scope.animateOnResize
