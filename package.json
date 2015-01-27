@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "coffee-script": "^1.8.0",
+    "d3": "^3.5.3",
     "http-server": "^0.7.4",
-    "karma": "^0.12.31"
+    "karma": "^0.12.31",
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
     "jasmine-core": "^2.1.3",
