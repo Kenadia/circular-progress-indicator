@@ -32,12 +32,20 @@ module.exports = (grunt) ->
         tests: ["tests/*.coffee"]
       },
       coffee: {
-        glob_to_multiple: {
+        app: {
           expand: true,
           flatten: true,
           cwd: "src/coffeescript",
           src: ["*.coffee"],
           dest: "build/js/",
+          ext: ".js"
+        },
+        tests: {
+          expand: true,
+          flatten: true,
+          cwd: "tests",
+          src: ["*.coffee"],
+          dest: "tests",
           ext: ".js"
         }
       }
@@ -65,6 +73,10 @@ module.exports = (grunt) ->
             livereload: true
           }
         }
+        tests: {
+          files: "tests/*.coffee",
+          tasks: ["tests"]
+        }
       }
     )
 
@@ -80,9 +92,12 @@ module.exports = (grunt) ->
                      ["autoprefixer", "cssmin"])
 
   grunt.registerTask("scripts", "Compiles the CoffeeScript files.",
-                     ["coffeelint", "coffee", "uglify"])
+                     ["coffeelint:app", "coffee:app", "uglify"])
+
+  grunt.registerTask("tests", "Compiles the test CoffeeScript files.",
+                     ["coffeelint:tests", "coffee:tests"])
 
   grunt.registerTask("build", "Compiles all assets.",
-                     ["clean:build", "stylesheets", "scripts"])
+                     ["clean:build", "stylesheets", "scripts", "tests"])
 
   grunt.registerTask("default", ["build", "watch"])
