@@ -64,8 +64,9 @@ angular.module "testApp"
 
     scope.render = ->
       svg.selectAll("*").remove()
-      r = scope.width / 2.0 # Radius
-      scope.center = "translate(" + r + "," + scope.height / 2.0 + ")"
+      r = (Math.min scope.width, scope.height) / 2.0 # Radius
+      scope.center = "translate(" + scope.width / 2.0 + "," +
+        scope.height / 2.0 + ")"
 
       # Make SVG elements
       makeCircle r * 0.72, scope.indicatorCenterClass
