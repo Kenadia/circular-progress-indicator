@@ -8,7 +8,7 @@
 
 Install dependencies with `npm install`.
 
-Build with `grunt`.
+Build and watch for changes with `grunt`.
 
 Run server with `npm start` then visit [localhost:8000/app](http://localhost:8000/app).
 
