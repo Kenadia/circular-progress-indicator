@@ -2,12 +2,29 @@ module.exports = (grunt) ->
 
   grunt.initConfig(
       pkg: grunt.file.readJSON("package.json"),
+      clean: {
+        build: {
+          src: ["build", "app/css", "app/js"]
+        },
+        stylesheets: {
+          src: ["build/css/*.css"]
+        },
+        scripts: {
+          src: ["build/js/*.js"]
+        }
+      }
       autoprefixer: {
         build: {
           expand: true,
           flatten: true,
           src: "src/css/*.css",
-          dest: "app/css/"
+          dest: "build/css/"
+        }
+      },
+      cssmin: {
+        build: {
+          src: "build/css/*.css",
+          dest: "app/css/build.min.css"
         }
       },
       coffeelint: {
@@ -32,12 +49,34 @@ module.exports = (grunt) ->
           src: "build/js/*.js",
           dest: "app/js/build.min.js"
         }
+      },
+      watch: {
+        stylesheets: {
+          files: "src/css/*.css",
+          tasks: ["stylesheets"]
+        },
+        scripts: {
+          files: "src/coffeescript/*.coffee",
+          tasks: ["scripts"]
+        }
       }
     )
 
+  grunt.loadNpmTasks("grunt-contrib-clean")
   grunt.loadNpmTasks("grunt-autoprefixer")
+  grunt.loadNpmTasks("grunt-contrib-cssmin")
   grunt.loadNpmTasks("grunt-coffeelint")
   grunt.loadNpmTasks("grunt-contrib-coffee")
   grunt.loadNpmTasks("grunt-contrib-uglify")
+  grunt.loadNpmTasks("grunt-contrib-watch")
 
-  grunt.registerTask("default", ["autoprefixer", "coffeelint", "coffee", "uglify"])
+  grunt.registerTask("stylesheets", "Compiles the stylesheets.",
+                     ["autoprefixer", "cssmin"])
+
+  grunt.registerTask("scripts", "Compiles the CoffeeScript files.",
+                     ["coffeelint", "coffee", "uglify"])
+
+  grunt.registerTask("build", "Compiles all assets.",
+                     ["clean:build", "stylesheets", "scripts"])
+
+  grunt.registerTask("default", ["build", "watch"])
