@@ -2,6 +2,10 @@ module.exports = (grunt) ->
 
   grunt.initConfig(
       pkg: grunt.file.readJSON("package.json"),
+      coffeelint: {
+        app: ["app/js/*.coffee"],
+        tests: ["tests/*.coffee"]
+      },
       coffee: {
         glob_to_multiple: {
           expand: true,
@@ -23,7 +27,8 @@ module.exports = (grunt) ->
       }
     )
 
+  grunt.loadNpmTasks("grunt-coffeelint")
   grunt.loadNpmTasks("grunt-contrib-coffee")
   grunt.loadNpmTasks("grunt-contrib-uglify")
 
-  grunt.registerTask("default", ["coffee", "uglify"])
+  grunt.registerTask("default", ["coffeelint", "coffee", "uglify"])
