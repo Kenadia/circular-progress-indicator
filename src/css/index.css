@@ -52,6 +52,9 @@ circular-progress-indicator {
   font-family: "Helvetica Neue";
   font-weight: 200;
 }
+circular-progress-indicator text {
+  fill: #666;
+}
 .small-indicator {
   width: 80px;
   height: 80px;

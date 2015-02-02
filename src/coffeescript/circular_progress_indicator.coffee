@@ -65,11 +65,12 @@ angular.module "testApp"
           .duration(duration)
           .call(arcTween, value * 2 * Math.PI)
 
-    makeText = (text, size, align, dx, dy) ->
+    makeText = (text, class_, size, align, dx, dy) ->
       svg.append("text")
         .text(text)
         .style "font-size", size
         .style "text-anchor", align
+        .attr "class", class_
         .attr "dx", dx
         .attr "dy", dy
         .attr "transform", scope.center
@@ -93,11 +94,11 @@ angular.module "testApp"
       outerArc = makeArc outerArcFunction, scope.actualArcClass
       animateInner = makeArcAnimation innerArcFunction, innerArc
       animateOuter = makeArcAnimation outerArcFunction, outerArc
-      makeText "", r * TEXT_SIZE_ACTUAL_PERCENT, "end",
+      makeText "", scope.textClass, r * TEXT_SIZE_ACTUAL_PERCENT, "end",
         r * TEXT_OFFSET_X_ACTUAL_PERCENT, r * TEXT_OFFSET_Y_ACTUAL_PERCENT
-      makeText "%", r * TEXT_SIZE_PRECENT_SYMBOL, "start",
+      makeText "%", scope.textClass, r * TEXT_SIZE_PRECENT_SYMBOL, "start",
         r * TEXT_OFFSET_X_PERCENT_SYMBOL, r * TEXT_OFFSET_Y_PERCENT_SYMBOL
-      makeText "Progress", r * TEXT_SIZE_PROGRESS, "middle",
+      makeText "Progress", scope.textClass, r * TEXT_SIZE_PROGRESS, "middle",
         r * TEXT_OFFSET_X_PROGRESS, r * TEXT_OFFSET_Y_PROGRESS
 
       # Don't animate if arcs have been rendered previously
@@ -162,5 +163,6 @@ angular.module "testApp"
     indicatorCenterClass: "@"
     expectedArcClass: "@"
     actualArcClass: "@"
+    textClass: "@"
     animateOnResize: "=?"
   link: link
