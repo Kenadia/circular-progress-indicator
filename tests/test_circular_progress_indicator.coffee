@@ -12,7 +12,7 @@ describe "directive: circular-progress-indicator", ->
 
   beforeEach module "testApp"
 
-  beforeEach inject ($rootScope, $compile) ->
+  beforeEach inject ($document, $rootScope, $compile) ->
     scope = $rootScope.$new()
     element = ['<circular-progress-indicator expected="expected"'
       'indicator-center-class="indicator-center"'
@@ -22,6 +22,7 @@ describe "directive: circular-progress-indicator", ->
     scope.expected = 0.4
     scope.actual = 0.65
     element = $compile(element)(scope)
+    $document.append(element)
     scope.$digest()
 
   describe "with the initial values", ->
@@ -32,7 +33,8 @@ describe "directive: circular-progress-indicator", ->
       expect(element[0].querySelector(".outer-arc")).not.toBe(null)
 
     it "should contain arcs with the correct sizes", ->
-      expect(element.find("circle")[0].r.baseVal.value).not.toBe(0)
+      # expect(element.find("circle")[0].r.baseVal.value).not.toBe(0)
+      expect(element.find("circle").node()).not.toBe(0)
       # arc = d3.select(element[0])[0][0].outerHTML
       # expect(arc).toBe(null)
       # expect(arc.attr("x")).toBe(0)
