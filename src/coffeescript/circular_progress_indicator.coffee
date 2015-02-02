@@ -1,8 +1,24 @@
 angular.module "testApp"
 .directive "circularProgressIndicator", () ->
 
+  ANIMATION_DURATION = 750
+  INNER_ARC_INSIDE = 0.83
+  INNER_ARC_OUTSIDE = 0.88
+  INNER_CIRCLE_SIZE = 0.72
+  OUTER_ARC_INSIDE = 0.90
+  OUTER_ARC_OUTSIDE = 1.00
+  TEXT_OFFSET_X_ACTUAL_PERCENT = 0.26
+  TEXT_OFFSET_X_PERCENT_SYMBOL = 0.24
+  TEXT_OFFSET_X_PROGRESS = 0.05
+  TEXT_OFFSET_Y_ACTUAL_PERCENT = 0.01
+  TEXT_OFFSET_Y_PERCENT_SYMBOL = 0.01
+  TEXT_OFFSET_Y_PROGRESS = .26
+  TEXT_SIZE_ACTUAL_PERCENT = .48
+  TEXT_SIZE_PRECENT_SYMBOL = .27
+  TEXT_SIZE_PROGRESS = .20
   WEAK_THRESHOLD = 0.75
   WEAKER_THRESHOLD = 0.5
+  WINDOW_RESIZE_DEBOUNCE_DURATION = 250
 
   link = (scope, element, attrs) ->
     attrs.expected = scope.expected = parseFloat(scope.expected or 0)
@@ -49,11 +65,10 @@ angular.module "testApp"
           .duration(duration)
           .call(arcTween, value * 2 * Math.PI)
 
-    makeText = (text, color, size, align, dx, dy) ->
+    makeText = (text, size, align, dx, dy) ->
       svg.append("text")
         .text(text)
         .style "font-size", size
-        .style "fill", color
         .style "text-anchor", align
         .attr "dx", dx
         .attr "dy", dy
@@ -69,21 +84,26 @@ angular.module "testApp"
         scope.height / 2.0 + ")"
 
       # Make SVG elements
-      makeCircle r * 0.72, scope.indicatorCenterClass
-      innerArcFunction = makeArcFunction r * 0.83, r * 0.88
-      outerArcFunction = makeArcFunction r * 0.90, r * 1.00
+      makeCircle r * INNER_CIRCLE_SIZE, scope.indicatorCenterClass
+      innerArcFunction = makeArcFunction r * INNER_ARC_INSIDE,
+        r * INNER_ARC_OUTSIDE
+      outerArcFunction = makeArcFunction r * OUTER_ARC_INSIDE,
+        r * OUTER_ARC_OUTSIDE
       innerArc = makeArc innerArcFunction, scope.expectedArcClass
       outerArc = makeArc outerArcFunction, scope.actualArcClass
       animateInner = makeArcAnimation innerArcFunction, innerArc
       animateOuter = makeArcAnimation outerArcFunction, outerArc
-      makeText "", "#666", r * .48, "end", r * 0.26, r * 0.01
-      makeText "%", "#666", r * .27, "start", r * 0.24, r * 0.01
-      makeText "Progress", "#999", r * .20, "middle", r * 0.05, r * .26
+      makeText "", r * TEXT_SIZE_ACTUAL_PERCENT, "end",
+        r * TEXT_OFFSET_X_ACTUAL_PERCENT, r * TEXT_OFFSET_Y_ACTUAL_PERCENT
+      makeText "%", r * TEXT_SIZE_PRECENT_SYMBOL, "start",
+        r * TEXT_OFFSET_X_PERCENT_SYMBOL, r * TEXT_OFFSET_Y_PERCENT_SYMBOL
+      makeText "Progress", r * TEXT_SIZE_PROGRESS, "middle",
+        r * TEXT_OFFSET_X_PROGRESS, r * TEXT_OFFSET_Y_PROGRESS
 
       # Don't animate if arcs have been rendered previously
       # and animateOnResize is false
       if initialRender or scope.animateOnResize
-        duration = 750
+        duration = ANIMATION_DURATION
       else
         duration = 0
       initialRender = false
@@ -120,14 +140,14 @@ angular.module "testApp"
     ), scope.render
 
     scope.$watch "expected", ->
-      scope.updateValues 750
+      scope.updateValues ANIMATION_DURATION
     scope.$watch "actual", ->
-      scope.updateValues 750
+      scope.updateValues ANIMATION_DURATION
 
     # Update bindings when window changes size to detect change in element width
     debouncedApply = _.debounce (->
       scope.$apply()
-    ), 250
+    ), WINDOW_RESIZE_DEBOUNCE_DURATION
     angular.element(window).bind "resize", debouncedApply
 
     scope.$on "$destroy", cleanup = ->
