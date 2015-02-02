@@ -79,7 +79,8 @@ angular.module "testApp"
       makeText "%", "#666", r * .27, "start", r * 0.24, r * 0.01
       makeText "Progress", "#999", r * .20, "middle", r * 0.05, r * .26
 
-      # Don't animate if arcs have been rendered previously and animateOnResize is false
+      # Don't animate if arcs have been rendered previously
+      # and animateOnResize is false
       if initialRender or scope.animateOnResize
         duration = 750
       else
@@ -112,9 +113,9 @@ angular.module "testApp"
 
     # Render when the element width changes
     scope.$watch (getElementWidth = ->
-        scope.height = element[0].offsetHeight
-        scope.width = element[0].offsetWidth
-      ), scope.render
+      scope.height = element[0].offsetHeight
+      scope.width = element[0].offsetWidth
+    ), scope.render
 
     scope.$watch "expected", ->
       scope.updateValues 750
@@ -123,8 +124,8 @@ angular.module "testApp"
 
     # Update bindings when window changes size to detect change in element width
     debouncedApply = _.debounce (->
-        scope.$apply()
-      ), 250
+      scope.$apply()
+    ), 250
     angular.element(window).bind "resize", debouncedApply
 
     scope.$on "$destroy", cleanup = ->

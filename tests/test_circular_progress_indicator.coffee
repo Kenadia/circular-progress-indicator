@@ -68,7 +68,7 @@ describe "directive: circular-progress-indicator", ->
       scope.$digest()
       expect(element[0].querySelector(".outer-arc").classList.length).toBe(1)
 
-    it "should add the 'weak' class if actual is <75% but at least 50% expected", ->
+    it "should add 'weak' class if actual <75% but at least 50% expected", ->
       scope.expected = 0.5
       scope.actual = 0.374
       scope.$digest()
