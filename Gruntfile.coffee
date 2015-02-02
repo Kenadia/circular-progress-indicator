@@ -11,16 +11,16 @@ module.exports = (grunt) ->
         }
       },
       coffeelint: {
-        app: ["app/js/*.coffee"],
+        app: ["src/coffeescript/*.coffee"],
         tests: ["tests/*.coffee"]
       },
       coffee: {
         glob_to_multiple: {
           expand: true,
           flatten: true,
-          cwd: "app/js",
+          cwd: "src/coffeescript",
           src: ["*.coffee"],
-          dest: "app/js/",
+          dest: "build/js/",
           ext: ".js"
         }
       }
@@ -29,7 +29,7 @@ module.exports = (grunt) ->
           banner: "/*! <%= pkg.name %> <%= grunt.template.today(\"yyyy-mm-dd\") %> */\n"
         },
         build: {
-          src: "app/js/*.js",
+          src: "build/js/*.js",
           dest: "app/js/build.min.js"
         }
       }

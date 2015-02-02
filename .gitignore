@@ -4,4 +4,5 @@ node_modules/
 npm-debug.log
 app/js/*.js
 app/css/*.css
+build
 tests/*.js
