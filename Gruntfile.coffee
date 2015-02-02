@@ -2,6 +2,14 @@ module.exports = (grunt) ->
 
   grunt.initConfig(
       pkg: grunt.file.readJSON("package.json"),
+      autoprefixer: {
+        build: {
+          expand: true,
+          flatten: true,
+          src: "src/css/*.css",
+          dest: "app/css/"
+        }
+      },
       coffeelint: {
         app: ["app/js/*.coffee"],
         tests: ["tests/*.coffee"]
@@ -27,8 +35,9 @@ module.exports = (grunt) ->
       }
     )
 
+  grunt.loadNpmTasks("grunt-autoprefixer")
   grunt.loadNpmTasks("grunt-coffeelint")
   grunt.loadNpmTasks("grunt-contrib-coffee")
   grunt.loadNpmTasks("grunt-contrib-uglify")
 
-  grunt.registerTask("default", ["coffeelint", "coffee", "uglify"])
+  grunt.registerTask("default", ["autoprefixer", "coffeelint", "coffee", "uglify"])
