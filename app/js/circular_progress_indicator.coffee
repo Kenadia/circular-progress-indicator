@@ -110,25 +110,24 @@ angular.module "testApp"
         animateInner expected, duration
         animateOuter actual, duration
 
-    # Render when the element width changes
-    scope.$watch (getElementWidth = ->
-        scope.height = element[0].offsetHeight
-        scope.width = element[0].offsetWidth
-      ), scope.render
-
     scope.$watch "expected", ->
       scope.updateValues 750
     scope.$watch "actual", ->
       scope.updateValues 750
 
-    # Update bindings when window changes size to detect change in element width
-    debouncedApply = _.debounce (->
-        scope.$apply()
+    # Check for changes in the element's size when the window is resized
+    debouncedUpdateSize = _.debounce (updateSize = ->
+        widthChanged = scope.width != (scope.width = element[0].offsetWidth)
+        heightChanged = scope.height != (scope.height = element[0].offsetHeight)
+        if widthChanged or heightChanged
+          scope.render()
+        return
       ), 250
-    angular.element(window).bind "resize", debouncedApply
-
+    angular.element(window).bind "resize", debouncedUpdateSize
     scope.$on "$destroy", cleanup = ->
-      angular.element(window).unbind "resize", debouncedApply
+      angular.element(window).unbind "resize", debouncedUpdateSize
+
+    updateSize()
 
     return
 
