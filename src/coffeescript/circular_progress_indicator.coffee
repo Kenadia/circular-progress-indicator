@@ -92,30 +92,31 @@ angular.module "testApp"
       return
 
     scope.updateValues = (duration) ->
-      if not initialRender
-        expected = sanitizePercentage(scope.expected)
-        actual = sanitizePercentage(scope.actual)
+      if initialRender
+        return
+      expected = sanitizePercentage(scope.expected)
+      actual = sanitizePercentage(scope.actual)
 
-        # Update text
-        textNode = element.find("text")[0]
-        textNode.innerHTML = String(Math.round(actual * 100))
+      # Update text
+      textNode = element.find("text")[0]
+      textNode.innerHTML = String(Math.round(actual * 100))
 
-        # Determine classes for styling the outer arc
-        outerArcClasses = [scope.actualArcClass]
-        if actual / expected < WEAKER_THRESHOLD
-          outerArcClasses.push scope.actualArcClass + "-weaker"
-        else if actual / expected < WEAK_THRESHOLD
-          outerArcClasses.push scope.actualArcClass + "-weak"
-        outerArcNode = outerArc[0][0]
-        outerArcNode.className.baseVal = outerArcClasses.join " "
+      # Determine classes for styling the outer arc
+      outerArcClasses = [scope.actualArcClass]
+      if actual / expected < WEAKER_THRESHOLD
+        outerArcClasses.push scope.actualArcClass + "-weaker"
+      else if actual / expected < WEAK_THRESHOLD
+        outerArcClasses.push scope.actualArcClass + "-weak"
+      outerArcNode = outerArc[0][0]
+      outerArcNode.className.baseVal = outerArcClasses.join " "
 
-        animateInner expected, duration
-        animateOuter actual, duration
+      animateInner expected, duration
+      animateOuter actual, duration
 
-    # Render when the element width changes
-    scope.$watch (getElementWidth = ->
+    # Re-render when the width of the element changes
+    scope.$watch (getElementSize = ->
       scope.height = element[0].offsetHeight
-      scope.width = element[0].offsetWidth
+      return scope.width = element[0].offsetWidth
     ), scope.render
 
     scope.$watch "expected", ->
