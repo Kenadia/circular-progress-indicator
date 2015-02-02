@@ -38,10 +38,10 @@ h1, h3 {
 .outer-arc-weaker {
   fill: rgb(193, 55, 11);
 }
-.resizing-indicator .inner-arc {
+.responsive-indicator .inner-arc {
   fill: rgb(86, 172, 206);
 }
-.resizing-indicator .outer-arc {
+.responsive-indicator .outer-arc {
   fill: rgb(29, 140, 180);
 }
 circular-progress-indicator {
