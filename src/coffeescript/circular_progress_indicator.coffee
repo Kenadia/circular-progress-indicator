@@ -7,6 +7,7 @@ angular.module "testApp"
   INNER_CIRCLE_SIZE = 0.72
   OUTER_ARC_INSIDE = 0.90
   OUTER_ARC_OUTSIDE = 1.00
+  STRING_PROGRESS = "Progress"
   TEXT_OFFSET_X_ACTUAL_PERCENT = 0.26
   TEXT_OFFSET_X_PERCENT_SYMBOL = 0.24
   TEXT_OFFSET_X_PROGRESS = 0.05
@@ -98,7 +99,7 @@ angular.module "testApp"
         r * TEXT_OFFSET_X_ACTUAL_PERCENT, r * TEXT_OFFSET_Y_ACTUAL_PERCENT
       makeText "%", scope.textClass, r * TEXT_SIZE_PRECENT_SYMBOL, "start",
         r * TEXT_OFFSET_X_PERCENT_SYMBOL, r * TEXT_OFFSET_Y_PERCENT_SYMBOL
-      makeText "Progress", scope.textClass, r * TEXT_SIZE_PROGRESS, "middle",
+      makeText STRING_PROGRESS, scope.textClass, r * TEXT_SIZE_PROGRESS, "middle",
         r * TEXT_OFFSET_X_PROGRESS, r * TEXT_OFFSET_Y_PROGRESS
 
       # Don't animate if arcs have been rendered previously
