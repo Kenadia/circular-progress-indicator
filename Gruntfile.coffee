@@ -53,11 +53,17 @@ module.exports = (grunt) ->
       watch: {
         stylesheets: {
           files: "src/css/*.css",
-          tasks: ["stylesheets"]
+          tasks: ["stylesheets"],
+          options: {
+            livereload: true
+          }
         },
         scripts: {
           files: "src/coffeescript/*.coffee",
-          tasks: ["scripts"]
+          tasks: ["scripts"],
+          options: {
+            livereload: true
+          }
         }
       }
     )
