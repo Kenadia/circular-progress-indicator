@@ -3,6 +3,13 @@ describe "directive: circular-progress-indicator", ->
   scope = undefined
   element = undefined
 
+  flushD3Transitions = ->
+    now = Date.now
+    Date.now = ->
+      return Infinity
+    d3.timer.flush()
+    Date.now = now
+
   beforeEach module "testApp"
 
   beforeEach inject ($rootScope, $compile) ->
@@ -10,7 +17,8 @@ describe "directive: circular-progress-indicator", ->
     element = ['<circular-progress-indicator expected="expected"'
       'indicator-center-class="indicator-center"'
       'expected-arc-class="inner-arc" actual-arc-class="outer-arc"'
-      'actual="actual"></circular-progress-indicator>'].join ""
+      'actual="actual" style="display:inline-block;width:100px;height:100px;">'
+      '</circular-progress-indicator>'].join ""
     scope.expected = 0.4
     scope.actual = 0.65
     element = $compile(element)(scope)
@@ -22,6 +30,13 @@ describe "directive: circular-progress-indicator", ->
       expect(element.find("circle").attr("class")).toBe("indicator-center")
       expect(element[0].querySelector(".inner-arc")).not.toBe(null)
       expect(element[0].querySelector(".outer-arc")).not.toBe(null)
+
+    it "should contain arcs with the correct sizes", ->
+      expect(element.find("circle")[0].r.baseVal.value).not.toBe(0)
+      # arc = d3.select(element[0])[0][0].outerHTML
+      # expect(arc).toBe(null)
+      # expect(arc.attr("x")).toBe(0)
+      # flushD3Transitions()
 
     it "should contain text elements with the correct content", ->
       expect(element.find("text")[0].innerHTML).toBe(String(scope.actual * 100))
