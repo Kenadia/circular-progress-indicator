@@ -18,6 +18,7 @@
 
   <div class="container">
     <h1>Circular Progress Indicator</h1>
+
     <h3>Fixed sizing</h3>
     <div class="outer-box">
       <div class="row">
@@ -63,24 +64,59 @@
         </div>
       </div>
     </div>
+    
     <br>
+
     <h3>Responsive sizing</h3>
     <div class="row">
       <div class="col-sm-2 col-sm-offset-5 outer-box inner-box">
-        <circular-progress-indicator class="resizing-indicator" expected="expected" actual="actual"
+        <circular-progress-indicator class="responsive-indicator" expected="expected" actual="actual"
           indicator-center-class="indicator-center"
           expected-arc-class="inner-arc" actual-arc-class="outer-arc"
-          animate-on-resize="animateOnResize">
+          animate-on-resize="animateOnResize1">
         </circular-progress-indicator>
         <div class="toggle-animate">
           <label>
-            <input class="js-toggle-animate" type="checkbox" ng-model="animateOnResize">
+            <input class="js-toggle-animate" type="checkbox" ng-model="animateOnResize1">
             <br>Animate on resize
           </label>
         </div>
       </div>
     </div>
-  </div>
+
+    <br>
+
+    <h3>Variable sizing</h3>
+    <div class="outer-box">
+      <div class="row">
+        <div class="col-xs-12 inner-box">
+          <circular-progress-indicator class="variable-indicator js-variable-indicator"
+            expected="expected" actual="actual"
+            indicator-center-class="indicator-center"
+            expected-arc-class="inner-arc" actual-arc-class="outer-arc"
+            animate-on-resize="animateOnResize2">
+          </circular-progress-indicator>
+          <div class="toggle-animate">
+            <label>
+              <input class="js-toggle-animate" type="checkbox" ng-model="animateOnResize2">
+              <br>Animate on resize
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="slider-label">Indicator size</span>
+        </div>
+        <div class="col-sm-4">
+          <div class="js-size-slider slider"></div>
+        </div>
+        <div class="col-sm-4">
+          <input type="text" ng-model="variableIndicatorSize">
+        </div>
+      </div>
+    </div>
+  </div> <!--container-->
 
 </body>
 </html>

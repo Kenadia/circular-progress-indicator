@@ -1,10 +1,15 @@
 /* Main styling */
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
 }
+body {
+  padding-bottom: 50px;
+}
 h1, h3 {
   text-align: center;
+  margin-bottom: 20px;
 }
 .outer-box {
   background: rgb(250, 250, 250);
@@ -64,8 +69,11 @@ circular-progress-indicator {
   width: 160px;
   height: 160px;
 }
-.resizing-indicator {
+.responsive-indicator {
   width: 100%;
+}
+.variable-indicator {
+  width: 100px;
 }
 
 /* UI styling */
